@@ -58,11 +58,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RijndaelAlgorithm.cs" />
-    <Compile Include="RSAAlgorithm.cs" />
-    <Compile Include="RSAEncryptorDecryptor.cs" />
-    <Compile Include="RSAKeyGenerator.cs" />
     <Compile Include="VernamAlgorithm.cs" />
+    <Compile Include="VigenereCipher.cs" />
     <EmbeddedResource Include="Cryptography.resx">
       <DependentUpon>Cryptography.cs</DependentUpon>
     </EmbeddedResource>

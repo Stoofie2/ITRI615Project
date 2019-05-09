@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Text;
 using System.IO;
 namespace ITRI615Project
 {
     public static class VernamAlgorithm
     {
         static string keyFile = "vernamkey.ser";
-
         public static void Encrypt(string file,string fileName)
         {
             string temp = fileName = fileName.Replace("_encrypted", "");
@@ -19,16 +19,14 @@ namespace ITRI615Project
             byte[] ogfileBytes = new byte[fs.Length];
 
             fs.Read(ogfileBytes, 0, ogfileBytes.Length);
- 
+
             //another byte array is created in order to store the key value that will be used to encrypt the file with.
             //the vernam algorithm requires that the key value must be the same length of the file (in this case the same amount of bytes).
             //the random function is used in order to generate random byte values to be stored in the key byte array.
 
-            byte[] key = new byte[ogfileBytes.Length];
-            Random myRandom = new Random();
-            myRandom.NextBytes(key);
+            byte[] key = GenerateKey(ogfileBytes);
             fs.Close();
-           
+
             // using the filestream again the key byte array is written to the file called keydump.txt that will be used in order to decrypt the file again.
             fs = new FileStream(keyFile, FileMode.Create);
             fs.Write(key, 0, key.Length);
@@ -43,6 +41,94 @@ namespace ITRI615Project
             fs = new FileStream(encrtypedName, FileMode.Create);
             fs.Write(en_bytes, 0, en_bytes.Length);
             fs.Close();
+        }
+
+        private static byte[] GenerateKey(byte[] ogfileBytes)
+        {
+            byte[] key = new byte[ogfileBytes.Length];
+            Random myRandom = new Random();
+            myRandom.NextBytes(key);
+            return key;
+        }
+
+        private static string GenerateTextKey(string message)
+        {
+            string key = "";
+            Random myRandom = new Random();
+
+
+            for (int i = 0; i < message.Length; i++)
+            {
+                key += Convert.ToChar(Convert.ToInt32(Math.Floor(26 * myRandom.NextDouble() + 65)));
+            }
+
+            try
+            {
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = new StreamWriter(keyFile);
+
+                //Write a second line of text
+                sw.Write(key);
+
+                //Close the file
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
+
+            return key;
+        }
+
+        public static string EncryptText(string message)
+        {
+            string key = GenerateTextKey(message);
+            return EncryptDecryptText(message, key);
+        }
+
+        private static string EncryptDecryptText(string message, string key)
+        {
+            var result = new StringBuilder();
+
+            for (int c = 0; c < message.Length; c++)
+            {
+                // take next character from string
+                char character = message[c];
+
+                // cast to a uint
+                uint charCode = (uint)character;
+
+                // figure out which character to take from the key
+                int keyPosition = c % key.Length; // use modulo to "wrap round"
+
+                // take the key character
+                char keyChar = key[keyPosition];
+
+                // cast it to a uint also
+                uint keyCode = (uint)keyChar;
+
+                // perform XOR on the two character codes
+                uint combinedCode = charCode ^ keyCode;
+
+                // cast back to a char
+                char combinedChar = (char)combinedCode;
+
+                // add to the result
+                result.Append(combinedChar);
+            }
+
+            return result.ToString();
+        }
+    
+        public static string DecryptText(string cipher)
+        {
+            string key = File.ReadAllText("vernamkey.ser");
+            return EncryptDecryptText(cipher, key);
         }
 
         public static void Decrypt(string file, string fileName)//method to decrypt a file encrypted by the vernam algorithm given the keyfile.

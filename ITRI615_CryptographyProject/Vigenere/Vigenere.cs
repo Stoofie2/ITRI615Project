@@ -15,6 +15,7 @@ namespace ITRI615_CryptographyProject.Vigenere
     public partial class Vigenere : UserControl
     {
         //**VIGENERE RELATED VARIABLES
+
         string VigKey = "VIGENERECIPHER";
         ToolTip TP = new ToolTip();
 

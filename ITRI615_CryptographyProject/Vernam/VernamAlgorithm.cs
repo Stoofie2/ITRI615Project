@@ -160,7 +160,8 @@ namespace ITRI615_CryptographyProject.Vernam
             for (int i = 0; i < inputBytes.Length; i++)
             {
                 outputBytes[i] = (byte)(inputBytes[i] ^ keyBytes[i]);
+                //multiplies the value of each character in the byte array to the power of the value in the keybyte array.
             }
-        }
+    }
     }
 }

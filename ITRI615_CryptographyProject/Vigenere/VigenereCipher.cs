@@ -67,9 +67,14 @@ namespace ITRI615_CryptographyProject.Vigenere
             {
                 for (int i = 0; i < message.Length; i++)
                 {
-                    keyIndex = keyIndex % keylength;
-                    int shift = (int)key[keyIndex] - 65;
+                    //the algorithm is broken up into various steps to make it easier to understand.
+                    keyIndex = keyIndex % keylength; //at first the keyindex to be used is obtained by taking the current key index and mod it with the keylength
+
+                    int shift = (int)key[keyIndex] - 65; //the shift value is determined by taking the key character (parsing it to integer value) and substracting it with 65. The subsctraction for 65 is done to get the correct value for the modulus operator.
+
+                    //a new value is obtained by adding the value of the message (parsed to an integer) and the shift key then modding it with 26.
                     result[i] = (byte)(((int)message[i] + shift) % 256);
+
                     keyIndex++;
                 }
             }

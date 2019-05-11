@@ -16,6 +16,7 @@ namespace ITRI615_CryptographyProject.Vernam
     {
         string VernamKey = "";
         int count = 0;
+        ToolTip TP = new ToolTip();
         public VernamForm()
         {
             InitializeComponent();
@@ -105,6 +106,12 @@ namespace ITRI615_CryptographyProject.Vernam
             else
                 VernamKey = rdtxtSetKeyVig.Text;
                 radLabel6.Text = "Current key: " + VernamKey;
+        }
+
+        private void VernamForm_Load(object sender, EventArgs e)
+        {
+            TP.ShowAlways = true;
+            TP.SetToolTip(radLabel5, "Enter a manual key to be used or a random one will be generated.");
         }
     }
 }

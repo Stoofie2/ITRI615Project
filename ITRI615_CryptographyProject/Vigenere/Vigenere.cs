@@ -16,8 +16,6 @@ namespace ITRI615_CryptographyProject.Vigenere
     {
         //**VIGENERE RELATED VARIABLES
         string VigKey = "VIGENERECIPHER";
-        string encryptedVernamMessage;
-        string decryptedVernamMessage;
         ToolTip TP = new ToolTip();
 
         public Vigenere()
@@ -60,7 +58,7 @@ namespace ITRI615_CryptographyProject.Vigenere
         private void btnEncryptVig_Click(object sender, EventArgs e)
         {
             string message = txtVigMessage.Text;
-            string encryptedMessVig = VigenereCipher.Cipher(message, VigKey, false);
+            string encryptedMessVig = VigenereCipher.Cipher(message, VigKey, true);
             txtVigDecOutput.Text = encryptedMessVig; //displayes encrypted cipher.
             radLabel1.Visible = true;
             txtVigDecOutput.Visible = true;
@@ -69,7 +67,7 @@ namespace ITRI615_CryptographyProject.Vigenere
         private void btnDecryptVig_Click(object sender, EventArgs e)
         {
             string encryptedMessVig = txtVigDecOutput.Text;
-            string decryptedMess = VigenereCipher.Cipher(encryptedMessVig, VigKey, true);
+            string decryptedMess = VigenereCipher.Cipher(encryptedMessVig, VigKey, false);
             lstbxVigOutput.Text = decryptedMess; //displayes decrypted message.
             radLabel3.Visible = true;
             lstbxVigOutput.Visible = true;
@@ -79,7 +77,7 @@ namespace ITRI615_CryptographyProject.Vigenere
         private void Vigenere_Load(object sender, EventArgs e)
         {
             TP.ShowAlways = true;
-            TP.SetToolTip(radLabel5, "Enter a manual key to be used, otherwise a random key will be generated.");
+            TP.SetToolTip(radLabel5, "Enter a manual key to be used, otherwise the default key will be used.");
             radLabel6.Text = "Current key: " + VigKey;
         }
 

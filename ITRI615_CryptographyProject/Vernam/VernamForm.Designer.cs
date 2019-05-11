@@ -260,6 +260,7 @@
             this.Controls.Add(this.rdbtnVernamEncrypt);
             this.Name = "VernamForm";
             this.Size = new System.Drawing.Size(837, 369);
+            this.Load += new System.EventHandler(this.VernamForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstbxVernamMessDecrypt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessEncrypted)).EndInit();

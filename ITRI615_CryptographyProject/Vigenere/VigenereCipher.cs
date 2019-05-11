@@ -4,10 +4,7 @@ namespace ITRI615_CryptographyProject.Vigenere
 {
     static public class VigenereCipher
     {
-        private static int Mod(int a, int b)
-        {
-            return (a % b + b) % b;
-        }
+
 
         public static void Encrypt(string file, string fileName, string key)
         {
@@ -56,7 +53,7 @@ namespace ITRI615_CryptographyProject.Vigenere
             int keyIndex = 0;
             int keylength = key.Length;
 
-            if (value == false)
+            if (value == false) //decrypt ciphertext
             {
                 for (int i = 0; i < message.Length; i++)
                 {
@@ -66,7 +63,7 @@ namespace ITRI615_CryptographyProject.Vigenere
                     keyIndex++;
                 }
             }
-            else
+            else //encrypt plaintext
             {
                 for (int i = 0; i < message.Length; i++)
                 {
@@ -110,6 +107,11 @@ namespace ITRI615_CryptographyProject.Vigenere
             }
 
             return output;
+        }
+
+        private static int Mod(int a, int b)
+        {
+            return (a % b + b) % b;
         }
     }
 }

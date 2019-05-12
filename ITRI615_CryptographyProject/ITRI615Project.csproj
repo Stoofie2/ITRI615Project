@@ -85,6 +85,7 @@
     <Compile Include="CryptographyForm.Designer.cs">
       <DependentUpon>CryptographyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileHandler.cs" />
     <Compile Include="Transposition\Transposition.cs">
       <SubType>UserControl</SubType>
     </Compile>

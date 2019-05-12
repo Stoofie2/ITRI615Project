@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 namespace ITRI615_CryptographyProject.Vigenere
 {
     static public class VigenereCipher
     {
-
         public static void Encrypt(string file, string fileName, string key)
         {
             //adds the _encrypted string to the name of the file to indicate it is encrypted.
@@ -21,7 +19,6 @@ namespace ITRI615_CryptographyProject.Vigenere
 
             // create an byte array namely "en_bytes" that will be used to store the encrypted byte values for the file by making use of the key byte array created earlier.
             byte[] en_bytes = DecryptEncryptByteVigenere(ogfileBytes, key,true);
-
 
             //after the file has been encrypted the filestream is used again to write the encrypted file to the disk again.
             fs = new FileStream(encrtypedName, FileMode.Create);

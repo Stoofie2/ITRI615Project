@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -25,35 +18,21 @@ namespace ITRI615_CryptographyProject.Vigenere
             InitializeComponent();
         }
 
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                { Arguments = folderPath, FileName = "explorer.exe" };
-                Process.Start(startInfo);
-            }
-        }
-
- 
         private void radMenuItem3_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.ShowDialog();
             byte[] bytes = File.ReadAllBytes(myDialog.FileName);
             VigenereCipher.Encrypt(myDialog.FileName, myDialog.SafeFileName, VigKey);
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            OpenFolder(directoryPath);
+            FileHandler.OpenFolder();
         }
 
         private void radMenuItem4_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            myDialog.InitialDirectory = directoryPath;
             myDialog.ShowDialog();
             VigenereCipher.Decrypt(myDialog.FileName, myDialog.SafeFileName, VigKey);
-            OpenFolder(directoryPath);
+            FileHandler.OpenFolder();
         }
 
         private void btnEncryptVig_Click(object sender, EventArgs e)

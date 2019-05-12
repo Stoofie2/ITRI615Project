@@ -25,16 +25,6 @@ namespace ITRI615_CryptographyProject.Vernam
         string encryptedVernamMessage;
         string decryptedVernamMessage;
 
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                { Arguments = folderPath, FileName = "explorer.exe" };
-                Process.Start(startInfo);
-            }
-        }
-
         private void rdbtnVernamEncrypt_Click(object sender, EventArgs e)
         {
             string message = txtVernamMessageInput.Text;
@@ -53,18 +43,15 @@ namespace ITRI615_CryptographyProject.Vernam
             OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.ShowDialog();
             VernamAlgorithm.Encrypt(myDialog.FileName, myDialog.SafeFileName);
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            OpenFolder(directoryPath);
+            FileHandler.OpenFolder();
         }
 
         private void radMenuItem4_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            myDialog.InitialDirectory = directoryPath;
             myDialog.ShowDialog();
             VernamAlgorithm.Decrypt(myDialog.FileName, myDialog.SafeFileName);
-            OpenFolder(directoryPath);
+            FileHandler.OpenFolder();
         }
 
         private string GenerateRandomKey()

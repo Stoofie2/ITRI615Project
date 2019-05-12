@@ -6,9 +6,11 @@ namespace ITRI615_CryptographyProject.Vernam
     public static class VernamAlgorithm
     {
         static readonly string keyFile = "vernamkey.ser";
+
         public static void Encrypt(string file, string fileName)
         {
-            string temp = fileName = fileName.Replace("_encrypted", "");
+            //adds the _encrypted string to the name of the file to indicate it is encrypted.
+            string temp = fileName.Replace("_encrypted", ""); 
             string encrtypedName = "_encrypted" + temp;
             
             // filestream is used to read the file provided through the paramater of this method.
@@ -39,11 +41,12 @@ namespace ITRI615_CryptographyProject.Vernam
             fs.Close();
         }
 
-        private static byte[] GenerateKey(byte[] ogfileBytes)
+        private static byte[] GenerateKey(byte[] ogfileBytes) //method is used to generate a random key for the data being encrypted.
         {
-            byte[] key = new byte[ogfileBytes.Length];
-            Random myRandom = new Random();
-            myRandom.NextBytes(key);
+            byte[] key = new byte[ogfileBytes.Length]; //creates the key array with the same length as the files to be encrypted.
+            //makes use of the random function to generate a new random byte.
+            Random myRandom = new Random(); 
+            myRandom.NextBytes(key); 
             return key;
         }
 
@@ -91,60 +94,69 @@ namespace ITRI615_CryptographyProject.Vernam
         {
             var result = new StringBuilder();
 
-            for (int c = 0; c < message.Length; c++)
+            //plain text encryption is broken up into a few steps to make it easier to understand and ensure it works properly.
+            for (int i = 0; i < message.Length; i++)
             {
-                // take next character from string
-                char character = message[c];
-                // cast to a uint
-                uint charCode = (uint)character;
+                //character from the message is taken and stored into a variable.
+                char character = message[i];
+
+                // the character from the message is casted to an unsigned integer.
+                uint character_code = (uint)character;
+
                 // figure out which character to take from the key
-                int keyPosition = c % key.Length; // use modulo to "wrap round"
+                int position = i % key.Length; // use modulo to "wrap round"
+
                 // take the key character
-                char keyChar = key[keyPosition];
-                // cast it to a uint also
-                uint keyCode = (uint)keyChar;
-                // perform XOR on the two character codes
-                uint combinedCode = charCode ^ keyCode;
-                // cast back to a char
+                char key_character = key[position];
+
+                // cast the key character to an unsigned integer.
+                uint key_code = (uint)key_character;
+
+                // uses the XOR operator on the two characters.
+                uint combinedCode = character_code ^ key_code;
+
+                //after the XOR operator has been performed the newly produced character is cast back to a character.
                 char combinedChar = (char)combinedCode;
-                // add to the result
+
+                //the character is then added to the result string.
                 result.Append(combinedChar);
             }
 
             return result.ToString();
         }
 
-        public static string DecryptText(string cipher,string key)
+        public static string DecryptText(string ciphertext,string key)
         {
             //string key = File.ReadAllText("vernamkey.ser");
-            return EncryptDecryptText(cipher, key);
+            return EncryptDecryptText(ciphertext, key);
         }
 
         public static void Decrypt(string file, string fileName)//method to decrypt a file encrypted by the vernam algorithm given the keyfile.
         {
-            string temp = fileName = fileName.Replace("_encrypted", "_decrypted"); ;
+            //adds the _decrypted string to the name of the file to indicate it is decrypted as well as removing _encrypted from the name if it is detected.
+            string temp = fileName.Replace("_encrypted", "_decrypted"); 
             string decryptedName = temp;
 
-            // Filestream is used in order to read the encrypted file into the byte array called "en_bytes".
+            //Filestream is used in order to read the encrypted file into the byte array called "en_bytes".
             byte[] en_bytes;
             FileStream fs = new FileStream(file, FileMode.Open);
             en_bytes = new byte[fs.Length];
             fs.Read(en_bytes, 0, en_bytes.Length);
             fs.Close();
 
-            // Filestream is used again in order to read in the key file into the byte array called "key".
+            //Filestream is used again in order to read in the key file into the byte array called "key".
             byte[] key;
             fs = new FileStream(keyFile, FileMode.Open);
             key = new byte[fs.Length];
             fs.Read(key, 0, key.Length);
             fs.Close();
 
-            // Calls the methods to decrypt the encrypted byte array and store the decrypted values into an array called decryptedBytes.
+            //Calls the methods to decrypt the encrypted byte array and store the decrypted values into an array called decryptedBytes.
             byte[] decryptedBytes = new byte[en_bytes.Length];
 
-            EncryptDecryptFile(en_bytes, key, ref decryptedBytes);
+            EncryptDecryptFile(en_bytes, key, ref decryptedBytes); //calls the "actual" encryption/decryption method and the result will then ensure that the decryptedBytes array contains the decrypted file.
 
-            // The decrypted file is written to the disk by using the filestream.
+            //The decrypted file is written to the disk by using the filestream.
             fs = new FileStream(decryptedName, FileMode.Create);
             fs.Write(decryptedBytes, 0, decryptedBytes.Length);
             fs.Close();

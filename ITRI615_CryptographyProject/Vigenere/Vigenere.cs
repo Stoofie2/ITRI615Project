@@ -59,7 +59,7 @@ namespace ITRI615_CryptographyProject.Vigenere
         private void btnEncryptVig_Click(object sender, EventArgs e)
         {
             string message = txtVigMessage.Text;
-            string encryptedMessVig = VigenereCipher.Cipher(message, VigKey, true);
+            string encryptedMessVig = VigenereCipher.DecryptEncryptTextVigenere(message, VigKey, true);
             txtVigDecOutput.Text = encryptedMessVig; //displayes encrypted cipher.
             radLabel1.Visible = true;
             txtVigDecOutput.Visible = true;
@@ -68,7 +68,7 @@ namespace ITRI615_CryptographyProject.Vigenere
         private void btnDecryptVig_Click(object sender, EventArgs e)
         {
             string encryptedMessVig = txtVigDecOutput.Text;
-            string decryptedMess = VigenereCipher.Cipher(encryptedMessVig, VigKey, false);
+            string decryptedMess = VigenereCipher.DecryptEncryptTextVigenere(encryptedMessVig, VigKey, false);
             lstbxVigOutput.Text = decryptedMess; //displayes decrypted message.
             radLabel3.Visible = true;
             lstbxVigOutput.Visible = true;

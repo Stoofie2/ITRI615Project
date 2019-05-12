@@ -72,6 +72,7 @@
     <Reference Include="TelerikData, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom\Custom.cs" />
     <Compile Include="Custom\CustomAlgorithm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +91,7 @@
     <Compile Include="Transposition\Transposition.Designer.cs">
       <DependentUpon>Transposition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transposition\TranspositionAlgorithm.cs" />
     <Compile Include="Vernam\VernamAlgorithm.cs" />
     <Compile Include="Vernam\VernamForm.cs">
       <SubType>UserControl</SubType>

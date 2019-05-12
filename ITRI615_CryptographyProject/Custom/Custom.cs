@@ -9,8 +9,6 @@ namespace ITRI615_CryptographyProject.Custom
 {
     class Custom
     {
-        public static int originalSize1 = 0;
-        public static int originalSize2 = 0;
         public static int count = 0;
 
         public static string EncryptT(string input, int col, int shift)
@@ -37,16 +35,6 @@ namespace ITRI615_CryptographyProject.Custom
 
         public static byte[] TranspositionE(byte[] input, int col)
         {
-            if (count == 0)
-            {
-                originalSize1 = input.Length;
-                count++;
-            }
-            else if (count == 1)
-            {
-                originalSize2 = input.Length;
-            }
-
             if (input.Length % col != 0)
             {
                 int oldSize = input.Length;
@@ -158,37 +146,22 @@ namespace ITRI615_CryptographyProject.Custom
                 for (j = 0; j < totalColumns; ++j)
                     colBytes[j, i] = rowBytes[i, j];
             
-            if (count == 1)
+            for (i = 0; i < totalBytes; ++i)
             {
-                for (i = 0; i < originalSize1; ++i)
-                {
-                    currentRow = i / totalRows;
-                    currentColumn = i % totalRows;
-                    output[i] = colBytes[currentRow, currentColumn];
-                }
-
-                count--;
-            }
-            else if (count == 0)
-            {
-                for (i = 0; i < originalSize2; ++i)
-                {
-                    currentRow = i / totalRows;
-                    currentColumn = i % totalRows;
-                    
-                    output[i] = colBytes[currentRow, currentColumn];
-                }
+                currentRow = i / totalRows;
+                currentColumn = i % totalRows;
+                output[i] = colBytes[currentRow, currentColumn];
             }
 
             for (int l = 0; l < output.Length; l++)
             {
-                if (output[l] == 0)
+                if (output[l] == 45)
                 {
-                    newSize = l + 1;
+                    newSize = l;
                     break;
                 }
                 else
-                    newSize = l;
+                    newSize = l + 1;
             }
             
             byte[] fOutput = new byte[newSize];

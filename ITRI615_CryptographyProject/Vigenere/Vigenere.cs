@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Diagnostics;
 
 namespace ITRI615_CryptographyProject.Vigenere
 {
@@ -24,52 +16,51 @@ namespace ITRI615_CryptographyProject.Vigenere
   
             InitializeComponent();
         }
-
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                { Arguments = folderPath, FileName = "explorer.exe" };
-                Process.Start(startInfo);
-            }
-        }
-
  
         private void radMenuItem3_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.ShowDialog();
-            byte[] bytes = File.ReadAllBytes(myDialog.FileName);
-            VigenereCipher.Encrypt(myDialog.FileName, myDialog.SafeFileName, VigKey);
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            OpenFolder(directoryPath);
+            if (!string.IsNullOrEmpty(myDialog.FileName))
+            {
+                byte[] bytes = File.ReadAllBytes(myDialog.FileName);
+                VigenereCipher.Encrypt(myDialog.FileName, myDialog.SafeFileName, VigKey);
+                FileHandler.OpenFolder();
+            }
         }
 
         private void radMenuItem4_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            myDialog.InitialDirectory = directoryPath;
             myDialog.ShowDialog();
-            VigenereCipher.Decrypt(myDialog.FileName, myDialog.SafeFileName, VigKey);
-            OpenFolder(directoryPath);
+            if (!string.IsNullOrEmpty(myDialog.FileName))
+            {
+                VigenereCipher.Decrypt(myDialog.FileName, myDialog.SafeFileName, VigKey);
+                FileHandler.OpenFolder();
+            }
         }
 
         private void btnEncryptVig_Click(object sender, EventArgs e)
         {
-            string message = txtVigMessage.Text;
-            string encryptedMessVig = VigenereCipher.DecryptEncryptTextVigenere(message, VigKey, true);
-            txtVigDecOutput.Text = encryptedMessVig; //displayes encrypted cipher.
-            radLabel1.Visible = true;
-            txtVigDecOutput.Visible = true;
+            if (string.IsNullOrEmpty(txtVigMessage.Text))
+            {
+                MessageBox.Show("Enter message to encrypt.");
+            }
+            else
+            {
+                string message = txtVigMessage.Text;
+                string encryptedMessVig = VigenereCipher.DecryptEncryptTextVigenere(message, VigKey, true);
+                txtVigDecOutput.Text = encryptedMessVig; //displays encrypted cipher.
+                radLabel1.Visible = true;
+                txtVigDecOutput.Visible = true;
+            }
         }
 
         private void btnDecryptVig_Click(object sender, EventArgs e)
         {
             string encryptedMessVig = txtVigDecOutput.Text;
             string decryptedMess = VigenereCipher.DecryptEncryptTextVigenere(encryptedMessVig, VigKey, false);
-            lstbxVigOutput.Text = decryptedMess; //displayes decrypted message.
+            lstbxVigOutput.Text = decryptedMess; //displays decrypted message.
             radLabel3.Visible = true;
             lstbxVigOutput.Visible = true;
         }

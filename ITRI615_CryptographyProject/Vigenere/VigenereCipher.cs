@@ -67,17 +67,10 @@ namespace ITRI615_CryptographyProject.Vigenere
                     keyIndex = keyIndex % keylength;  //at first the keyindex to be used is obtained by taking the current key index and mod it with the keylength
                     int shift = (int)key[keyIndex] - 65; //the shift value is determined by taking the key character (parsing it to integer value) and substracting it with 65. The subsctraction for 65 is done to get the correct value for the modulus operator.
 
-                    //if (!value) //if true then it means this method will be used to encrypt the text.
-                    //    shift = -shift; //the key value is reversed in order to use it to decrypt the message.
-
-                    //a new value is obtained by adding the value of the message (parsed to an integer) and 256, then substractng the shift key and afterwards modding it with 26.
-                    result[i] = (byte)(((int)message[i] + 128 - shift) % 128);
-                    //after the decrypted message is added to the result array, the keyindex is incrreased.
-
-                    //byte temp = (byte)Mod(((int)message[i] - shift) - 65, 26);
-
-                    //result[i] = (byte)(temp +65);
-
+                    //a new value is obtained by adding the value of the message (parsed to an integer) and 128, then substractng the shift key and afterwards modding it with 256.
+                    result[i] = (byte)(((int)message[i] + 256 - shift) % 256);
+                    //reason for modding with 128 is due to the normal english alphabetic table does not contain strange characters and symbols, so instead its modded with the ascii table.
+                    //after the decrypted message is added to the result array, the keyindex is increased.
 
                     keyIndex++;
                 }
@@ -87,27 +80,15 @@ namespace ITRI615_CryptographyProject.Vigenere
                 for (int i = 0; i < message.Length; i++)
                 {
 
-
-
                     //the algorithm is broken up into various steps to make it easier to understand.
                     keyIndex = keyIndex % keylength; //at first the keyindex to be used is obtained by taking the current key index and mod it with the keylength
 
                     int shift = (int)key[keyIndex] - 65; //the shift value is determined by taking the key character (parsing it to integer value) and substracting it with 65. The subsctraction for 65 is done to get the correct value for the modulus operator.
 
-                    //a new value is obtained by adding the value of the message (parsed to an integer) and the shift key then modding it with 26.
-                     result[i] = (byte)(((int)message[i] + shift) % 128);
+                    //a new value is obtained by adding the value of the message (parsed to an integer) and the shift key then modding it with 128.
+                     //result[i] = (byte)(((int)message[i] + shift) % 256);
 
  
-                   // byte temp = (byte)Mod(((int)message[i] + shift) -65, 26);
-
-                   // result[i] = (byte) (temp+65);
-
-                    //Mod(((input[i] + key_value) - offset), 26) + offset;
-                    // char mod_value_charcater = (char)Mod(((input[i] + key_value) - offset), 26);
-
-                    //char result_character = (char)(mod_value_charcater + offset); //the offset value is then added again to the modded value in order to obtain the result.
-
-
                     keyIndex++;
                 }
             }
@@ -145,14 +126,11 @@ namespace ITRI615_CryptographyProject.Vigenere
                         key_value = char.ToLower(key[keyIndex]) - offset; //the key's character is obtained using the key index and is converted to an uppercase.
                     }
 
-                    //char offset = cIsUpper ? 'A' : 'a';                 
-                    //int k = (cIsUpper ? char.ToUpper(key[keyIndex]) : char.ToLower(key[keyIndex])) - offset;
 
                     if (!encipher) //if true then it means this method will be used to encrypt the text.
                         key_value = -key_value; //the key value is reversed in order to use it to decrypt the message.
-                    //k = encipher ? k : -k;
 
-                    //the encrypted/decrtypted character isi obtained by adding the message's character with the key value, then subscracting the offset value and mod it with 26.
+                    //the encrypted/decrtypted character is obtained by adding the message's character with the key value, then subscracting the offset value and mod it with 26.
 
                     char mod_value_charcater = (char) Mod(((input[i] + key_value) - offset), 26);
 

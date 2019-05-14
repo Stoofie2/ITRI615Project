@@ -39,7 +39,7 @@ namespace ITRI615_CryptographyProject.Vernam
             fs.Close();
         }
 
-        private static byte[] GenerateKey(byte[] ogfileBytes)
+        private static byte[] GenerateKey(byte[] ogfileBytes) //used to generate a random key for the data being encrypted.
         {
             byte[] key = new byte[ogfileBytes.Length];
             Random myRandom = new Random();
@@ -47,71 +47,50 @@ namespace ITRI615_CryptographyProject.Vernam
             return key;
         }
 
-        /*private static string GenerateTextKey(string message)
-        {
-            string key = "";
-            Random myRandom = new Random();
-
-
-            for (int i = 0; i < message.Length; i++)
-            {
-                key += Convert.ToChar(Convert.ToInt32(Math.Floor(26 * myRandom.NextDouble() + 65)));
-            }
-
-            try
-            {
-                //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = new StreamWriter(keyFile);
-
-                //Write a second line of text
-                sw.Write(key);
-
-                //Close the file
-                sw.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-            }
-
-            return key;
-        }*/
-
+   
+   
         public static string EncryptText(string message,string key)
         {
-            //string key = GenerateTextKey(message);
             return EncryptDecryptText(message, key);
         }
 
         private static string EncryptDecryptText(string message, string key)
         {
-            var result = new StringBuilder();
+            var encrypted_decrypted_message = new StringBuilder();
 
-            for (int c = 0; c < message.Length; c++)
+            //the encryption/decryption with messages using vernam cipher is broken up into the following steps to make it easier.
+            for (int i = 0; i < message.Length; i++)
             {
-                // take next character from string
-                char character = message[c];
-                // cast to a uint
-                uint charCode = (uint)character;
-                // figure out which character to take from the key
-                int keyPosition = c % key.Length; // use modulo to "wrap round"
-                // take the key character
-                char keyChar = key[keyPosition];
-                // cast it to a uint also
-                uint keyCode = (uint)keyChar;
-                // perform XOR on the two character codes
-                uint combinedCode = charCode ^ keyCode;
-                // cast back to a char
+                // a character from the message to be encrypted/decrypted is selected.
+                char character_selected = message[i];
+
+                // the selected character from the text is casted to an unsigned integer.
+                uint character_code = (uint)character_selected;
+
+                // the key position is determined by modding the the current index of message with the key length. 
+                int key_position = i % key.Length; // use modulo to "wrap round"
+
+                // the key character corresponding with the keyposition determined above is then selected from the key.
+                char key_character = key[key_position];
+                
+                //the key character is then casted to an unsigned integer.
+                uint keyCode = (uint)key_character;
+
+                //reason for casting the key character and message character to unsigned integers is to make use of the XOR operator.
+                
+                
+                // performs the XOR operator on the message selected message character and key character.
+
+                uint combinedCode = character_code ^ keyCode;
+
+               //after the XOR operator is performed the newly generated result is then casted back to a character (char).
                 char combinedChar = (char)combinedCode;
-                // add to the result
-                result.Append(combinedChar);
+
+                //the newly decrypted/encrypted character is added to the string builder.
+                encrypted_decrypted_message.Append(combinedChar);
             }
 
-            return result.ToString();
+            return encrypted_decrypted_message.ToString();
         }
 
         public static string DecryptText(string cipher,string key)

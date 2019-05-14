@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
 
 namespace ITRI615_CryptographyProject.Custom
 {
@@ -29,7 +20,6 @@ namespace ITRI615_CryptographyProject.Custom
             string message = txtCustomMessage.Text;
             customEncryptedMessage = Custom.EncryptT(message, numColumns, shiftKey);
             txtCustomEncrypt.Text = customEncryptedMessage;
-
             lblCustomColumns.Text = "Number of Columns: " + numColumns;
             lblCustomShift.Text = "Shift Key: " + shiftKey;
         }
@@ -52,33 +42,26 @@ namespace ITRI615_CryptographyProject.Custom
             lblCustomColumns.Text = "Number of Columns: " + numColumns;
         }
 
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                { Arguments = folderPath, FileName = "explorer.exe" };
-                Process.Start(startInfo);
-            }
-        }
-
         private void radMenuItem3_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.ShowDialog();
-            Custom.FEncrypt(myDialog.FileName, myDialog.SafeFileName, numColumns, shiftKey);
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            OpenFolder(directoryPath);
+            if (!string.IsNullOrEmpty(myDialog.FileName))
+            {
+                Custom.FEncrypt(myDialog.FileName, myDialog.SafeFileName, numColumns, shiftKey);
+                FileHandler.OpenFolder();
+            }
         }
 
         private void radMenuItem4_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            myDialog.InitialDirectory = directoryPath;
             myDialog.ShowDialog();
-            Custom.FDecrypt(myDialog.FileName, myDialog.SafeFileName, numColumns, shiftKey);
-            OpenFolder(directoryPath);
+            if (!string.IsNullOrEmpty(myDialog.FileName))
+            {
+                Custom.FDecrypt(myDialog.FileName, myDialog.SafeFileName, numColumns, shiftKey);
+                FileHandler.OpenFolder();
+            }
         }
 
         private void radMenuItem5_Click(object sender, EventArgs e)
@@ -90,7 +73,6 @@ namespace ITRI615_CryptographyProject.Custom
             lbxCustomDecrypt.Items.Clear();
             numColumns = 5;
             shiftKey = 3;
-
             lblCustomColumns.Text = "Number of Columns: 5";
             lblCustomShift.Text = "Shift key: 3";
         }

@@ -34,8 +34,6 @@
             this.radMenuItem3 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem4 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem5 = new Telerik.WinControls.UI.RadMenuItem();
-            this.lstbxVernamMessDecrypt = new Telerik.WinControls.UI.RadListView();
-            this.txtVernamMessEncrypted = new Telerik.WinControls.UI.RadTextBox();
             this.txtVernamMessageInput = new Telerik.WinControls.UI.RadTextBox();
             this.rdbtnVernamDecrypt = new Telerik.WinControls.UI.RadButton();
             this.rdbtnVernamEncrypt = new Telerik.WinControls.UI.RadButton();
@@ -48,9 +46,9 @@
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
+            this.lstbxVernamMessDecrypt = new Telerik.WinControls.UI.RadTextBox();
+            this.txtVernamMessEncrypted = new Telerik.WinControls.UI.RadTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lstbxVernamMessDecrypt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessEncrypted)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessageInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rdbtnVernamDecrypt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rdbtnVernamEncrypt)).BeginInit();
@@ -64,6 +62,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lstbxVernamMessDecrypt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessEncrypted)).BeginInit();
             this.SuspendLayout();
             // 
             // radMenu1
@@ -72,7 +72,7 @@
             this.radMenuItem1});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(837, 20);
+            this.radMenu1.Size = new System.Drawing.Size(749, 20);
             this.radMenu1.TabIndex = 12;
             // 
             // radMenuItem1
@@ -113,43 +113,23 @@
             this.radMenuItem5.Text = "Reset";
             this.radMenuItem5.Click += new System.EventHandler(this.radMenuItem5_Click);
             // 
-            // lstbxVernamMessDecrypt
-            // 
-            this.lstbxVernamMessDecrypt.AllowEdit = false;
-            this.lstbxVernamMessDecrypt.AllowRemove = false;
-            this.lstbxVernamMessDecrypt.Location = new System.Drawing.Point(547, 91);
-            this.lstbxVernamMessDecrypt.Name = "lstbxVernamMessDecrypt";
-            this.lstbxVernamMessDecrypt.Size = new System.Drawing.Size(283, 254);
-            this.lstbxVernamMessDecrypt.TabIndex = 11;
-            // 
-            // txtVernamMessEncrypted
-            // 
-            this.txtVernamMessEncrypted.Location = new System.Drawing.Point(6, 91);
-            this.txtVernamMessEncrypted.Multiline = true;
-            this.txtVernamMessEncrypted.Name = "txtVernamMessEncrypted";
-            // 
-            // 
-            // 
-            this.txtVernamMessEncrypted.RootElement.StretchVertically = true;
-            this.txtVernamMessEncrypted.Size = new System.Drawing.Size(238, 254);
-            this.txtVernamMessEncrypted.TabIndex = 10;
-            // 
             // txtVernamMessageInput
             // 
-            this.txtVernamMessageInput.Location = new System.Drawing.Point(258, 50);
+            this.txtVernamMessageInput.Location = new System.Drawing.Point(247, 50);
             this.txtVernamMessageInput.Multiline = true;
             this.txtVernamMessageInput.Name = "txtVernamMessageInput";
             // 
             // 
             // 
             this.txtVernamMessageInput.RootElement.StretchVertically = true;
-            this.txtVernamMessageInput.Size = new System.Drawing.Size(235, 30);
+            this.txtVernamMessageInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtVernamMessageInput.Size = new System.Drawing.Size(235, 36);
             this.txtVernamMessageInput.TabIndex = 9;
             this.txtVernamMessageInput.TextChanged += new System.EventHandler(this.txtVernamMessageInput_TextChanged);
             // 
             // rdbtnVernamDecrypt
             // 
-            this.rdbtnVernamDecrypt.Location = new System.Drawing.Point(499, 56);
+            this.rdbtnVernamDecrypt.Location = new System.Drawing.Point(488, 56);
             this.rdbtnVernamDecrypt.Name = "rdbtnVernamDecrypt";
             this.rdbtnVernamDecrypt.Size = new System.Drawing.Size(110, 24);
             this.rdbtnVernamDecrypt.TabIndex = 8;
@@ -158,7 +138,7 @@
             // 
             // rdbtnVernamEncrypt
             // 
-            this.rdbtnVernamEncrypt.Location = new System.Drawing.Point(499, 26);
+            this.rdbtnVernamEncrypt.Location = new System.Drawing.Point(488, 26);
             this.rdbtnVernamEncrypt.Name = "rdbtnVernamEncrypt";
             this.rdbtnVernamEncrypt.Size = new System.Drawing.Size(110, 24);
             this.rdbtnVernamEncrypt.TabIndex = 7;
@@ -176,7 +156,7 @@
             // 
             // radLabel4
             // 
-            this.radLabel4.Location = new System.Drawing.Point(258, 92);
+            this.radLabel4.Location = new System.Drawing.Point(247, 92);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(95, 18);
             this.radLabel4.TabIndex = 22;
@@ -187,9 +167,9 @@
             this.radPanel1.Controls.Add(this.radLabel6);
             this.radPanel1.Controls.Add(this.rdbtnSetKeyVig);
             this.radPanel1.Controls.Add(this.rdtxtSetKeyVig);
-            this.radPanel1.Location = new System.Drawing.Point(258, 116);
+            this.radPanel1.Location = new System.Drawing.Point(247, 116);
             this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(283, 100);
+            this.radPanel1.Size = new System.Drawing.Size(235, 100);
             this.radPanel1.TabIndex = 21;
             // 
             // radLabel6
@@ -202,7 +182,7 @@
             // 
             // rdbtnSetKeyVig
             // 
-            this.rdbtnSetKeyVig.Location = new System.Drawing.Point(146, 35);
+            this.rdbtnSetKeyVig.Location = new System.Drawing.Point(118, 35);
             this.rdbtnSetKeyVig.Name = "rdbtnSetKeyVig";
             this.rdbtnSetKeyVig.Size = new System.Drawing.Size(110, 24);
             this.rdbtnSetKeyVig.TabIndex = 1;
@@ -218,7 +198,7 @@
             // 
             // radLabel3
             // 
-            this.radLabel3.Location = new System.Drawing.Point(649, 67);
+            this.radLabel3.Location = new System.Drawing.Point(488, 92);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(84, 18);
             this.radLabel3.TabIndex = 18;
@@ -227,7 +207,7 @@
             // 
             // radLabel2
             // 
-            this.radLabel2.Location = new System.Drawing.Point(258, 26);
+            this.radLabel2.Location = new System.Drawing.Point(247, 26);
             this.radLabel2.Name = "radLabel2";
             this.radLabel2.Size = new System.Drawing.Size(107, 18);
             this.radLabel2.TabIndex = 20;
@@ -235,17 +215,49 @@
             // 
             // radLabel1
             // 
-            this.radLabel1.Location = new System.Drawing.Point(63, 67);
+            this.radLabel1.Location = new System.Drawing.Point(3, 92);
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(83, 18);
             this.radLabel1.TabIndex = 19;
             this.radLabel1.Text = "Encrypted Text:";
             this.radLabel1.Visible = false;
             // 
+            // lstbxVernamMessDecrypt
+            // 
+            this.lstbxVernamMessDecrypt.Location = new System.Drawing.Point(488, 116);
+            this.lstbxVernamMessDecrypt.Multiline = true;
+            this.lstbxVernamMessDecrypt.Name = "lstbxVernamMessDecrypt";
+            this.lstbxVernamMessDecrypt.ReadOnly = true;
+            // 
+            // 
+            // 
+            this.lstbxVernamMessDecrypt.RootElement.StretchVertically = true;
+            this.lstbxVernamMessDecrypt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.lstbxVernamMessDecrypt.Size = new System.Drawing.Size(238, 132);
+            this.lstbxVernamMessDecrypt.TabIndex = 25;
+            this.lstbxVernamMessDecrypt.Visible = false;
+            // 
+            // txtVernamMessEncrypted
+            // 
+            this.txtVernamMessEncrypted.Location = new System.Drawing.Point(3, 116);
+            this.txtVernamMessEncrypted.Multiline = true;
+            this.txtVernamMessEncrypted.Name = "txtVernamMessEncrypted";
+            this.txtVernamMessEncrypted.ReadOnly = true;
+            // 
+            // 
+            // 
+            this.txtVernamMessEncrypted.RootElement.StretchVertically = true;
+            this.txtVernamMessEncrypted.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtVernamMessEncrypted.Size = new System.Drawing.Size(238, 132);
+            this.txtVernamMessEncrypted.TabIndex = 24;
+            this.txtVernamMessEncrypted.Visible = false;
+            // 
             // VernamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lstbxVernamMessDecrypt);
+            this.Controls.Add(this.txtVernamMessEncrypted);
             this.Controls.Add(this.radLabel5);
             this.Controls.Add(this.radLabel4);
             this.Controls.Add(this.radPanel1);
@@ -253,17 +265,13 @@
             this.Controls.Add(this.radLabel2);
             this.Controls.Add(this.radLabel1);
             this.Controls.Add(this.radMenu1);
-            this.Controls.Add(this.lstbxVernamMessDecrypt);
-            this.Controls.Add(this.txtVernamMessEncrypted);
             this.Controls.Add(this.txtVernamMessageInput);
             this.Controls.Add(this.rdbtnVernamDecrypt);
             this.Controls.Add(this.rdbtnVernamEncrypt);
             this.Name = "VernamForm";
-            this.Size = new System.Drawing.Size(837, 369);
+            this.Size = new System.Drawing.Size(749, 285);
             this.Load += new System.EventHandler(this.VernamForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lstbxVernamMessDecrypt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessEncrypted)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessageInput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rdbtnVernamDecrypt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rdbtnVernamEncrypt)).EndInit();
@@ -278,6 +286,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lstbxVernamMessDecrypt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVernamMessEncrypted)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,8 +300,6 @@
         private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem3;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem4;
-        private Telerik.WinControls.UI.RadListView lstbxVernamMessDecrypt;
-        private Telerik.WinControls.UI.RadTextBox txtVernamMessEncrypted;
         private Telerik.WinControls.UI.RadTextBox txtVernamMessageInput;
         private Telerik.WinControls.UI.RadButton rdbtnVernamDecrypt;
         private Telerik.WinControls.UI.RadButton rdbtnVernamEncrypt;
@@ -305,5 +313,7 @@
         private Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadLabel radLabel1;
+        private Telerik.WinControls.UI.RadTextBox lstbxVernamMessDecrypt;
+        private Telerik.WinControls.UI.RadTextBox txtVernamMessEncrypted;
     }
 }

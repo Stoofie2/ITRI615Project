@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
 
 namespace ITRI615_CryptographyProject.Vernam
 {
@@ -25,46 +16,50 @@ namespace ITRI615_CryptographyProject.Vernam
         string encryptedVernamMessage;
         string decryptedVernamMessage;
 
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                { Arguments = folderPath, FileName = "explorer.exe" };
-                Process.Start(startInfo);
-            }
-        }
-
         private void rdbtnVernamEncrypt_Click(object sender, EventArgs e)
         {
-            string message = txtVernamMessageInput.Text;
-            encryptedVernamMessage = VernamAlgorithm.EncryptText(message,VernamKey);
-            txtVernamMessEncrypted.Text = encryptedVernamMessage;
+            if (string.IsNullOrEmpty(txtVernamMessageInput.Text))
+            {
+                MessageBox.Show("Enter message to encrypt.");
+            }
+            else
+            {
+                string message = txtVernamMessageInput.Text;
+                encryptedVernamMessage = VernamAlgorithm.EncryptText(message, VernamKey);
+                txtVernamMessEncrypted.Text = encryptedVernamMessage;
+                txtVernamMessEncrypted.Visible = true;
+                radLabel1.Visible = true;
+            }
         }
 
         private void rdbtnVernamDecrypt_Click(object sender, EventArgs e)
         {
             decryptedVernamMessage = VernamAlgorithm.DecryptText(encryptedVernamMessage, VernamKey);
-            lstbxVernamMessDecrypt.Items.Add(decryptedVernamMessage);
+            lstbxVernamMessDecrypt.Text = decryptedVernamMessage;
+            lstbxVernamMessDecrypt.Visible = true;
+            radLabel3.Visible = true;
         }
 
         private void radMenuItem3_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.ShowDialog();
-            VernamAlgorithm.Encrypt(myDialog.FileName, myDialog.SafeFileName);
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            OpenFolder(directoryPath);
+            if (!string.IsNullOrEmpty(myDialog.FileName))
+            {
+                VernamAlgorithm.Encrypt(myDialog.FileName, myDialog.SafeFileName);
+                FileHandler.OpenFolder();
+            }
         }
 
         private void radMenuItem4_Click(object sender, EventArgs e)
         {
             OpenFileDialog myDialog = new OpenFileDialog();
-            string directoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            myDialog.InitialDirectory = directoryPath;
             myDialog.ShowDialog();
-            VernamAlgorithm.Decrypt(myDialog.FileName, myDialog.SafeFileName);
-            OpenFolder(directoryPath);
+            if (!string.IsNullOrEmpty(myDialog.FileName))
+            {
+                VernamAlgorithm.Decrypt(myDialog.FileName, myDialog.SafeFileName);
+                FileHandler.OpenFolder();
+            }
         }
 
         private string GenerateRandomKey()
@@ -94,7 +89,11 @@ namespace ITRI615_CryptographyProject.Vernam
             txtVernamMessageInput.Clear();
             txtVernamMessEncrypted.Clear();
             rdtxtSetKeyVig.Clear();
-            lstbxVernamMessDecrypt.Items.Clear();
+            lstbxVernamMessDecrypt.Clear();
+            lstbxVernamMessDecrypt.Visible = false;
+            txtVernamMessEncrypted.Visible = false;
+            radLabel1.Visible = false;
+            radLabel3.Visible = false;
             VernamKey = "";
             radLabel6.Text = "Current key: " + VernamKey;
         }

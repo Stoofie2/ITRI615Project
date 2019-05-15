@@ -17,23 +17,54 @@ namespace ITRI615_CryptographyProject.Transposition
 
         private void btnTransEncrypt_Click(object sender, EventArgs e)
         {
-            string message = txtTransMessage.Text;
-            transEncryptedMessage = TranspositionAlgorithm.EncryptT(message, numColumns);
-            txtTransEncrypted.Text = transEncryptedMessage;
+            if (txtTransMessage.Text == "")
+            {
+                MessageBox.Show("Please enter a message to encrypt");
+            }
+            else
+            {
+                string message = txtTransMessage.Text;
+                transEncryptedMessage = TranspositionAlgorithm.EncryptT(message, numColumns);
+                txtTransEncrypted.Text = transEncryptedMessage;
 
-            lblColumns.Text = "Number of Columns: " + numColumns;
+                lblColumns.Text = "Number of Columns: " + numColumns;
+            }
         }
 
         private void btnTransDecrypt_Click(object sender, EventArgs e)
         {
-            transDecryptedMessage = TranspositionAlgorithm.DecryptT(transEncryptedMessage, numColumns);
-            lbxTransDecrypted.Items.Add(transDecryptedMessage);
+            if (transEncryptedMessage == "")
+            {
+                MessageBox.Show("Please encrypt before you decrypt");
+            }
+            else
+            {
+                transDecryptedMessage = TranspositionAlgorithm.DecryptT(transEncryptedMessage, numColumns);
+                lbxTransDecrypted.Items.Add(transDecryptedMessage);
+            }
         }
 
         private void btnSetColumns_Click(object sender, EventArgs e)
         {
-            numColumns = int.Parse(txtSetColumns.Text);
-            lblColumns.Text = "Number of Columns: " + numColumns;
+            int number;
+            bool num = int.TryParse(txtSetColumns.Text, out number);
+
+            if (num)
+            {
+                if (number <= 0)
+                {
+                    MessageBox.Show("The number of columns needs to be more than 0, please enter a new number");
+                }
+                else
+                {
+                    numColumns = number;
+                    lblColumns.Text = "Number of Columns: " + numColumns;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number larger than 0");
+            }
         }
 
         private void radMenuItem5_Click_1(object sender, EventArgs e)

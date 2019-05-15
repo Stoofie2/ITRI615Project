@@ -17,29 +17,78 @@ namespace ITRI615_CryptographyProject.Custom
 
         private void btnCustomEncrypt_Click(object sender, EventArgs e)
         {
-            string message = txtCustomMessage.Text;
-            customEncryptedMessage = Custom.EncryptT(message, numColumns, shiftKey);
-            txtCustomEncrypt.Text = customEncryptedMessage;
-            lblCustomColumns.Text = "Number of Columns: " + numColumns;
-            lblCustomShift.Text = "Shift Key: " + shiftKey;
+            if (txtCustomMessage.Text == "")
+            {
+                MessageBox.Show("Please enter a message to encrypt");
+            }
+            else
+            {
+                string message = txtCustomMessage.Text;
+                customEncryptedMessage = Custom.EncryptT(message, numColumns, shiftKey);
+                txtCustomEncrypt.Text = customEncryptedMessage;
+                lblCustomColumns.Text = "Number of Columns: " + numColumns;
+                lblCustomShift.Text = "Shift Key: " + shiftKey;
+            }
         }
 
         private void btnCustomDecrypt_Click(object sender, EventArgs e)
         {
-            customDecryptedMessage = Custom.DecryptT(customEncryptedMessage, numColumns, shiftKey);
-            lbxCustomDecrypt.Items.Add(customDecryptedMessage);
+            if (customEncryptedMessage == "")
+            {
+                MessageBox.Show("Please encrypt before you decrypt");
+            }
+            else
+            {
+                customDecryptedMessage = Custom.DecryptT(customEncryptedMessage, numColumns, shiftKey);
+                lbxCustomDecrypt.Items.Add(customDecryptedMessage);
+            }
         }
 
         private void btnCustomSetShift_Click(object sender, EventArgs e)
         {
-            shiftKey = int.Parse(txtCustomShift.Text);
-            lblCustomShift.Text = "Shift key: " + shiftKey;
+            int number;
+            bool num = int.TryParse(txtCustomShift.Text, out number);
+
+            if (num)
+            {
+                if (number < -5 || number > 5)
+                {
+                    MessageBox.Show("The shift key value needs to be between -5 and 5, please enter a new number");
+                }
+                else
+                {
+                    shiftKey = number;
+                    lblCustomShift.Text = "Shift key: " + shiftKey;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number between -5 and 5");
+            }
         }
 
         private void btnCustomSetColumn_Click(object sender, EventArgs e)
         {
-            numColumns = int.Parse(txtCustomColumns.Text);
-            lblCustomColumns.Text = "Number of Columns: " + numColumns;
+            int number;
+            bool num = int.TryParse(txtCustomColumns.Text, out number);
+
+            if (num)
+            {
+                if (int.Parse(txtCustomColumns.Text) <= 0)
+                {
+                    MessageBox.Show("The number of columns needs to be more than 0, please enter a new number");
+                }
+                else
+                {
+                    numColumns = int.Parse(txtCustomColumns.Text);
+                    lblCustomColumns.Text = "Number of Columns: " + numColumns;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number larger than 0");
+            }
+
         }
 
         private void radMenuItem3_Click(object sender, EventArgs e)
@@ -75,6 +124,11 @@ namespace ITRI615_CryptographyProject.Custom
             shiftKey = 3;
             lblCustomColumns.Text = "Number of Columns: 5";
             lblCustomShift.Text = "Shift key: 3";
+        }
+
+        private void CustomAlgorithm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
